@@ -1,0 +1,39 @@
+﻿@model UsuarioListadoViewModel
+@{
+	ViewData["Title"] = "Listado de Usuarios";
+	Layout = "_Layout";
+}
+<h1>@ViewData["Title"]</h1>
+
+@if (Model.mensaje is not null)
+{
+	<div class="alert alert-success" role="alert">
+		@Model.mensaje
+	</div>
+}
+
+@if (Model.usuarios is not null)
+{
+	<form method="post">
+		<table class="table table-hover">
+			<thead>
+				<tr>
+					<th>Accion</th>
+					<th>Correo Electrónico</th>
+				</tr>
+			</thead>
+			<tbody>
+				@foreach (var usuario in Model.usuarios)
+				{
+					<tr>
+						<td>
+							<button type="submit" asp-controller="Usuarios" asp-action="HacerAdmin" asp-route-email="@usuario.email" class="btn btn-primary me-2">Asignar Admin</button>
+							<button type="submit" asp-controller="Usuarios" asp-action="RemoverAdmin" asp-route-email="@usuario.email" class="btn btn-secondary me-2">Remover Admin</button>
+						</td>
+						<td>@usuario.email</td>
+					</tr>
+				}
+			</tbody>
+		</table>
+	</form>
+}

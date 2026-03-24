@@ -1,0 +1,78 @@
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer localizer
+
+@{
+    ViewData["Title"] = "Listado Tareas";
+}
+
+<div id="app">
+
+    <div class="text-center">
+        <h1 class="display-4">@localizer["Mis Tareas"]</h1>
+
+        <button type="button"
+                class="btn btn-primary mb-3"
+                onclick="agregarNuevaTarea()">
+            @localizer["Agregar nueva Tarea"]
+        </button>
+    </div>
+
+    <div id="contenedor-listado-tareas" class="text-center">
+
+        <div class="text-start" data-bind="foreach: tareas">
+            <div class="border mb-2 p-2"
+                 style="cursor:pointer"
+                 data-bind="click: $parent.abrirModalEditar">
+
+                <div class="fw-bold"
+                     data-bind="text: titulo, visible: !esNuevo()">
+                </div>
+
+                <input type="text"
+                       name="titulo-tarea"
+                       autocomplete="off"
+                       data-bind="
+                            value: titulo,
+                            valueUpdate: 'afterblur',
+                            visible: esNuevo,
+                            event: { focusout: $parent.manejarFocusoutTituloTarea }" />
+            </div>
+        </div>
+
+        <div data-bind="visible: cargando" class="spinner-border">
+            <span class="visually-hidden">Cargando...</span>
+        </div>
+
+        <div data-bind="visible: noHayTareas">
+            No existen tareas para mostrar
+        </div>
+
+    </div>
+
+    <!-- MODAL -->
+    <partial name="ModalEditarTarea" />
+
+</div>
+
+@section Scripts {
+    <script src="~/js/tareas.js" asp-append-version="true"></script>
+    <script src="~/js/utilidades.js" asp-append-version="true"></script>
+
+    <script>
+        const urlTareas = "/api/tareas";
+
+        const modalEditarTareaBootstrap =
+            new bootstrap.Modal(
+                document.getElementById('modal-editar-tarea')
+            );
+
+        // ✅ UN SOLO applyBindings
+        ko.applyBindings(
+            tareaListadoViewModel,
+            document.getElementById('app')
+        );
+
+        // Cargar tareas
+        obtenerTareas();
+    </script>
+}

@@ -1,0 +1,59 @@
+﻿<div class="modal fade" id="modal-editar-tarea" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered modal-xl">
+        <div class="modal-content"
+             data-bind="with: tareaSeleccionada">
+
+            <div class="modal-header">
+                <h5 class="modal-title"
+                    data-bind="text: esNuevo() ? 'Nueva Tarea' : 'Editar Tarea'">
+                </h5>
+
+                <button type="button"
+                        class="btn-close"
+                        data-bs-dismiss="modal">
+                </button>
+            </div>
+
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-lg-9">
+
+                        <div class="form-floating mb-3">
+                            <input type="text"
+                                   class="form-control"
+                                   placeholder="Título"
+                                   data-bind="value: titulo" />
+                            <label>Título</label>
+                        </div>
+
+                        <div>
+                            <label class="form-label">Descripción</label>
+                            <textarea class="form-control"
+                                      rows="5"
+                                      data-bind="value: descripcion">
+                            </textarea>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 d-grid gap-2">
+                        <button class="btn btn-primary"
+                                data-bind="click: $root.guardarTarea">
+                            Guardar Cambios
+                        </button>
+
+                        <button class="btn btn-danger"
+                                data-bind="click: $root.eliminarTarea, visible: !esNuevo()">
+                            Eliminar Tarea
+                        </button>
+
+                        <button class="btn btn-secondary"
+                                data-bs-dismiss="modal">
+                            Cerrar
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
