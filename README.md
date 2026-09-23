@@ -1,114 +1,44 @@
-# \# TareasMVC
+# Tareas MVC
 
-# 
+Aplicación web para gestionar tareas, pasos y archivos adjuntos, con usuarios autenticados y roles. Incluye controladores MVC, vistas Razor y una API de tareas en `/api/tareas`.
 
-# Proyecto ASP.NET Core (Razor/MVC) para gestión de tareas.
+## Tecnologías
 
-# 
+C# · .NET 10 · ASP.NET Core MVC · Entity Framework Core · SQL Server · ASP.NET Core Identity · AutoMapper. Incluye recursos de localización y autenticación externa con Microsoft.
 
-# \## Descripción
+## Estructura
 
-# Aplicación web para crear, editar y listar tareas y usuarios. Usa ASP.NET Core con vistas Razor y una estructura MVC (controladores y vistas).
+- `Controllers/`: interfaz web, usuarios y API de tareas.
+- `Entidades/` y `ApplicationDbContext.cs`: modelo de datos y persistencia.
+- `Migrations/`: migraciones de SQL Server e Identity.
+- `Views/`, `Recursos/` y `wwwroot/`: interfaz, traducciones y recursos estáticos.
 
-# 
+## Ejecutar localmente
 
-# \## Requisitos
+Requisitos: SDK de .NET 10, SQL Server y la herramienta `dotnet-ef` compatible con EF Core 10.
 
-# \- .NET 10 SDK
+Desde la raíz:
 
-# \- Visual Studio 2022/2026 o VS Code
+```powershell
+dotnet user-secrets set "ConnectionStrings:DefaultConnection" "Server=localhost;Database=TareasMVC;Integrated Security=True;Encrypt=True;TrustServerCertificate=True"
+dotnet restore TareasMVC.csproj
+dotnet build TareasMVC.csproj
+dotnet ef database update --project TareasMVC.csproj
+dotnet run --project TareasMVC.csproj
+```
 
-# \- Node/npm (opcional para paquetes frontend)
+Aplica las migraciones únicamente a una base de desarrollo propia. El ejemplo de certificado es solo para desarrollo local. Abre la URL indicada por la terminal; la ruta inicial es `/Usuarios/Login`.
 
-# 
+El arranque registra el proveedor Microsoft sin condición: configura `MicrosoftClientId` y `MicrosoftClientSecret` mediante User Secrets con una aplicación propia y su redirección OAuth correspondiente. No se incluyen credenciales de ese proveedor.
 
-# \## Ejecutar
+## Estado
 
-# 1\. Abrir la solución `TareasMVC.sln` en Visual Studio y ejecutar (F5) o:
+Proyecto de portafolio. Las migraciones están incluidas; no hay una demo pública enlazada ni una suite de pruebas automatizadas incluida. La ejecución completa requiere configurar SQL Server y el proveedor de autenticación.
 
-# 2\. Desde terminal PowerShell en la carpeta del proyecto:
+## Configuración y alcance
 
-# 
+Usa una base de desarrollo y credenciales propias. Configura secretos mediante variables de entorno o User Secrets; no los incluyas en commits. La compilación no comprueba la disponibilidad de bases de datos, SMTP o APIs externas.
 
-# ```powershell
+## Autor
 
-# dotnet restore
-
-# dotnet build
-
-# dotnet run --project TareasMVC
-
-# ```
-
-# 
-
-# La aplicación por defecto se sirve en `https://localhost:5001` o la URL indicada en la salida.
-
-# 
-
-# \## Estructura relevante
-
-# \- `Controllers/` - Controladores MVC (`HomeController`, `TareasController`, `UsuariosController`, ...)
-
-# \- `Views/` - Vistas Razor por controlador
-
-# &#x20; - `Views/Shared/\_Layout.cshtml` - Layout principal
-
-# &#x20; - `Views/Shared/\_linkslogin.cshtml` - partial usado en el layout
-
-# \- `wwwroot/` - archivos estáticos (JS, CSS, librerías)
-
-# \- `wwwroot/js/Tareas.js` - scripts relacionados con las tareas
-
-# 
-
-# \## Endpoints importantes
-
-# \- `Home/Index` - Página inicial
-
-# \- `Usuarios/Registro` - Registro de usuarios
-
-# \- `Tareas/\*` - Operaciones relacionadas con tareas (listado, editar, crear)
-
-# 
-
-# \## Desarrollo
-
-# \- Seguir convenciones de MVC y usar `IActionResult`/`ActionResult<T>` en acciones de controladores.
-
-# \- Las vistas usan Bootstrap y algunas librerías externas (Knockout, SweetAlert).
-
-# 
-
-# \## Tests
-
-# Si hay proyecto de tests, ejecutar:
-
-# 
-
-# ```powershell
-
-# dotnet test
-
-# ```
-
-# 
-
-# \## Contribuciones
-
-# Abrir un issue o enviar pull request con mejoras.
-
-# 
-
-# \## Licencia
-
-# Este proyecto no incluye información de licencia; añadir `LICENSE` si es necesario.
-
-# 
-
-# \---
-
-# Generado automáticamente — editar según necesidades del proyecto.
-
-
-
+[Eduardo Araneda](https://github.com/eduardoaraneda) · [Portafolio](https://eduardoaraneda.github.io/Portafolio/)
